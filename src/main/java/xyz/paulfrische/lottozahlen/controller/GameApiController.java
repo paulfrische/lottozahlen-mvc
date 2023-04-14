@@ -1,5 +1,7 @@
 package xyz.paulfrische.lottozahlen.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import xyz.paulfrische.lottozahlen.games.ClassicGame;
 import xyz.paulfrische.lottozahlen.games.Eurojackpot;
@@ -20,15 +22,18 @@ import java.util.Random;
 public class GameApiController {
     private static final ClassicGame classicGame = new ClassicGame();
     private static final Eurojackpot eurojackpot = new Eurojackpot();
+    private static final Logger logger = LoggerFactory.getLogger(GameApiController.class);
     @GetMapping("/classic")
     public List<Short> classic(@RequestParam(name = "bn", required = true, defaultValue = "0,0,0,0,0,0") String badNumbersParameter) {
         List<Short> badNumbers = ParserUtil.parseNumbers(badNumbersParameter);
+        logger.debug("classic, bad numbers: " + badNumbers.toString());
         return classicGame.generateNumbers(badNumbers);
     }
 
     @GetMapping("/eurojackpot")
     public List<Short> eurojackpot(@RequestParam(name = "bn", required = true, defaultValue = "0,0,0,0,0,0") String badNumbersParameter) {
         List<Short> badNumbers = ParserUtil.parseNumbers(badNumbersParameter);
+        logger.debug("eurojackpot, bad numbers: " + badNumbers.toString());
         return eurojackpot.generateNumbers(badNumbers);
     }
 }
