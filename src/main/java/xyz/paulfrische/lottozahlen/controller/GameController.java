@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GameController {
     @RequestMapping("/classic")
     public String classic(Model model) {
-        model.addAttribute("game", "Classic");
-        return "game";
+        return "classic";
     }
 
     @RequestMapping("/eurojackpot")
     public String eurojackpot(Model model) {
         model.addAttribute("game", "Eurojackpot");
-        return "game";
+        return "eurojackpot";
     }
 }

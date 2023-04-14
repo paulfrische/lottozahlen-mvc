@@ -12,11 +12,11 @@ public class Eurojackpot implements Game {
         boolean valid = false;
         while (!valid) {
             for (int i = 0; i < 5; i++) {
-                numbers.set(i, (short) random.nextInt(50));
+                numbers.set(i, (short)(random.nextInt(49) + 1));
             }
 
-            numbers.set(5, (short)random.nextInt(10));
-            numbers.set(6, (short)random.nextInt(10));
+            numbers.set(5, (short)(random.nextInt(9) + 1));
+            numbers.set(6, (short)(random.nextInt(9) + 1));
 
             // check for bad numbers
             valid = true;
