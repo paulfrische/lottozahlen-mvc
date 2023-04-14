@@ -10,7 +10,11 @@ async function newNumbers() {
     const response = await fetch('/api/v1/eurojackpot?bn=' + number_list.join(','));
     const json = await response.json();
     console.log(json)
-    heading.innerHTML = json.slice(0, 5).join(' ') + '<span class="gold">' + json.slice(5, 7).join(' ') + '</span>';
+    const normalNumbers = json.slice(0, 5);
+    const superNumbers = json.slice(5, 7);
+    normalNumbers.sort((a, b) => a - b);
+    superNumbers.sort((a, b) => a - b);
+    heading.innerHTML = normalNumbers.join(' ') + '<span class="gold">' + superNumbers.join(' ') + '</span>';
 }
 newNumbers();
 
