@@ -2,20 +2,15 @@ package xyz.paulfrische.lottozahlen.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import xyz.paulfrische.lottozahlen.games.ClassicGame;
 import xyz.paulfrische.lottozahlen.games.Eurojackpot;
-import xyz.paulfrische.lottozahlen.model.ClassicModel;
-import xyz.paulfrische.lottozahlen.model.EurojackpotModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.paulfrische.lottozahlen.util.ParserUtil;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/api/v1")

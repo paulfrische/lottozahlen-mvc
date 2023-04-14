@@ -1,6 +1,7 @@
 package xyz.paulfrische.lottozahlen.games;
 
-import org.springframework.context.annotation.Bean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Random;
 
 public class ClassicGame implements Game {
     private static final Random random = new Random();
+    private static final Logger logger = LoggerFactory.getLogger(ClassicGame.class);
     @Override
     public List<Short> generateNumbers(List<Short> badNumbers) {
         List<Short> numbers = new ArrayList<>();
@@ -38,6 +40,7 @@ public class ClassicGame implements Game {
             }
         }
 
+        logger.debug("generated numbers " + numbers.toString());
         return numbers;
     }
 }
