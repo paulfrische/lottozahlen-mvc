@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.paulfrische.lottozahlen.util.ParserUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +22,13 @@ public class GameApiController {
     private static final Eurojackpot eurojackpot = new Eurojackpot();
     @GetMapping("/classic")
     public List<Short> classic(@RequestParam(name = "bn", required = true, defaultValue = "0,0,0,0,0,0") String badNumbersParameter) {
-        List<Short> badNumbers = new ArrayList<>();
-        String[] badNumbersString =  badNumbersParameter.split(",");
-        for (String num : badNumbersString) {
-            badNumbers.add(Short.parseShort(num));
-        }
-        System.out.println(badNumbers);
+        List<Short> badNumbers = ParserUtil.parseNumbers(badNumbersParameter);
         return classicGame.generateNumbers(badNumbers);
     }
 
     @GetMapping("/eurojackpot")
     public List<Short> eurojackpot(@RequestParam(name = "bn", required = true, defaultValue = "0,0,0,0,0,0") String badNumbersParameter) {
-        List<Short> badNumbers = new ArrayList<>();
-        String[] badNumbersString =  badNumbersParameter.split(",");
-        for (String num : badNumbersString) {
-            badNumbers.add(Short.parseShort(num));
-        }
-        System.out.println(badNumbers);
+        List<Short> badNumbers = ParserUtil.parseNumbers(badNumbersParameter);
         return eurojackpot.generateNumbers(badNumbers);
     }
 }
