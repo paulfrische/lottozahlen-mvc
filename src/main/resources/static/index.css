@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #101010;
+    color: white;
+    font-family: Arial, monospaced;
+}
+
+a {
+    color: #3b6ecb;
+}
+
+button {
+    background: #3afa3a;
+    border-radius: 9999px;
+    border-style: none;
+    padding: 1rem;
+}
+
+div * {
+    margin: 1.5rem;
+}
