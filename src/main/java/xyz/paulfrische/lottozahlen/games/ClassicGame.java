@@ -2,14 +2,17 @@ package xyz.paulfrische.lottozahlen.games;
 
 import org.springframework.context.annotation.Bean;
 
+import xyz.paulfrische.lottozahlen.data.ClassicNumbers;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class ClassicGame implements Game {
     private static final Random random = new Random();
     @Override
-    public List<Short> generateNumbers(List<Short> badNumbers) {
+    public ClassicNumbers generateNumbers(List<Short> badNumbers) {
         List<Short> numbers = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             numbers.add((short)(random.nextInt(49) + 1));
@@ -38,6 +41,7 @@ public class ClassicGame implements Game {
             }
         }
 
-        return numbers;
+        Collections.sort(numbers);
+        return new ClassicNumbers(numbers);
     }
 }

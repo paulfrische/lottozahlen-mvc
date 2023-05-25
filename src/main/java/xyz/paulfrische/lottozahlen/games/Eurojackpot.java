@@ -1,27 +1,31 @@
 package xyz.paulfrische.lottozahlen.games;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import xyz.paulfrische.lottozahlen.data.EurojackpotNumbers;
 
 public class Eurojackpot implements Game {
     private static final Random random = new Random();
     @Override
-    public List<Short> generateNumbers(List<Short> badNumbers) {
-        List<Short> numbers = new ArrayList<>(List.of(badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0)));
+    public EurojackpotNumbers generateNumbers(List<Short> badNumbers) {
+        List<Short> numbers = new ArrayList<>(List.of(badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0), badNumbers.get(0)));
+        List<Short> superNumbers = new ArrayList<>(List.of(badNumbers.get(0), badNumbers.get(0)));
         boolean valid = false;
         while (!valid) {
             for (int i = 0; i < 5; i++) {
-                numbers.set(i, (short) random.nextInt(50));
+                numbers.set(i, (short)(random.nextInt(49) + 1));
             }
 
-            numbers.set(5, (short)random.nextInt(10));
-            numbers.set(6, (short)random.nextInt(10));
+            superNumbers.set(0, (short)(random.nextInt(9) + 1));
+            superNumbers.set(1, (short)(random.nextInt(9) + 1));
 
             // check for bad numbers
             valid = true;
             for (short number : badNumbers) {
-                if (numbers.contains(number)) {
+                if (numbers.contains(number) || superNumbers.contains(number)) {
                     valid = false;
                     break;
                 }
@@ -36,7 +40,13 @@ public class Eurojackpot implements Game {
                     }
                 }
             }
+
+            if (superNumbers.get(0) == superNumbers.get(1)) {
+                valid = false;
+            }
         }
-        return numbers;
+        Collections.sort(numbers);
+        Collections.sort(superNumbers);
+        return new EurojackpotNumbers(numbers, superNumbers);
     }
 }

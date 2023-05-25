@@ -10,16 +10,12 @@
     <h1 th:text="${game}" id="title"></h1>
     <a href="/">Home</a>
     <div th:if="${game == 'Classic'}">
-        <span th:each="number: ${numbers}" th:text="${number}"></span>
+        <span th:each="number: ${numbers.numbers}" th:text="${number}"></span>
     </div>
     <div th:if="${game == 'Eurojackpot'}">
-        <span th:text="${numbers[0]}"></span>
-        <span th:text="${numbers[1]}"></span>
-        <span th:text="${numbers[2]}"></span>
-        <span th:text="${numbers[3]}"></span>
-        <span th:text="${numbers[4]}"></span>
-        <span th:text="${numbers[5]}" class="super"></span>
-        <span th:text="${numbers[6]}" class="super"></span>
+        <span th:each="number: ${numbers.numbers}" th:text="${number}"></span>
+        <span th:text="${numbers.superNumbers[0]}" class="super"></span>
+        <span th:text="${numbers.superNumbers[1]}" class="super"></span>
     </div>
     <div th:if="${warning}" class="warning" th:text="${msg}"></div>
     <form th:action="${game.toLowerCase()}" modelAttribute="numbers" method="post">

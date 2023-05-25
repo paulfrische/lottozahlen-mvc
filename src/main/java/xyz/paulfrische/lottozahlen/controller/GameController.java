@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import xyz.paulfrische.lottozahlen.data.ClassicNumbers;
+import xyz.paulfrische.lottozahlen.data.EurojackpotNumbers;
 import xyz.paulfrische.lottozahlen.games.ClassicGame;
 import xyz.paulfrische.lottozahlen.games.Eurojackpot;
 import xyz.paulfrische.lottozahlen.wrappers.NumbersRequestBody;
@@ -24,7 +26,7 @@ public class GameController {
     public String classicGet(Model model) {
         List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
 
-        List<Short> numbers = classic.generateNumbers(badNumbers);
+         ClassicNumbers numbers = classic.generateNumbers(badNumbers);
 
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
@@ -54,7 +56,7 @@ public class GameController {
             }
         }
 
-        List<Short> numbers = classic.generateNumbers(badNumbers);
+        ClassicNumbers numbers = classic.generateNumbers(badNumbers);
 
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
@@ -68,7 +70,7 @@ public class GameController {
     public String eurojackpotGet(Model model) {
         List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
 
-        List<Short> numbers = eurojackpot.generateNumbers(badNumbers);
+        EurojackpotNumbers numbers = eurojackpot.generateNumbers(badNumbers);
 
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
@@ -99,7 +101,7 @@ public class GameController {
             }
         }
 
-        List<Short> numbers = eurojackpot.generateNumbers(badNumbers);
+        EurojackpotNumbers numbers = eurojackpot.generateNumbers(badNumbers);
 
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
