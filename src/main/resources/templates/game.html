@@ -2,13 +2,26 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Eurojackpot</title>
+    <title th:text="${game}"></title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <div>
     <h1 th:text="${game}" id="title"></h1>
-    <h2 th:text="${numbers}"></h2>
+    <a href="/">Home</a>
+    <div th:if="${game == 'Classic'}">
+        <span th:each="number: ${numbers}" th:text="${number}"></span>
+    </div>
+    <div th:if="${game == 'Eurojackpot'}">
+        <span th:text="${numbers[0]}"></span>
+        <span th:text="${numbers[1]}"></span>
+        <span th:text="${numbers[2]}"></span>
+        <span th:text="${numbers[3]}"></span>
+        <span th:text="${numbers[4]}"></span>
+        <span th:text="${numbers[5]}" class="super"></span>
+        <span th:text="${numbers[6]}" class="super"></span>
+    </div>
+    <div th:if="${warning}" class="warning" th:text="${msg}"></div>
     <form th:action="${game.toLowerCase()}" modelAttribute="numbers" method="post">
         <input type="text" name="number1" th:value="${bad[0]}" />
         <input type="text" name="number2" th:value="${bad[1]}" />

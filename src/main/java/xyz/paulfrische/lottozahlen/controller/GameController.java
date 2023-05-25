@@ -22,23 +22,21 @@ public class GameController {
 
     @GetMapping("/classic")
     public String classicGet(Model model) {
-        List<Short> badNumbers = List.of((short)0, (short)0, (short)0, (short)0, (short)0, (short)0);
+        List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
 
-        String numbers = "";
-        for (short number : classic.generateNumbers(badNumbers)) {
-            numbers += " " + number;
-        }
+        List<Short> numbers = classic.generateNumbers(badNumbers);
 
-        model.addAttribute("game", "Classic");
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
-        System.out.println(badNumbers);
+        model.addAttribute("game", "Classic");
         return "game";
     }
 
     @PostMapping("/classic")
     public String classicPost(@ModelAttribute("numbers") NumbersRequestBody wrapper, Model model) {
-        List<Short> badNumbers = List.of((short)0, (short)0, (short)0, (short)0, (short)0, (short)0);
+        boolean warning = false;
+        String message = "";
+        List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
         if (wrapper != null) {
             badNumbers = new ArrayList<>();
             badNumbers.add(wrapper.getNumber1());
@@ -47,24 +45,67 @@ public class GameController {
             badNumbers.add(wrapper.getNumber4());
             badNumbers.add(wrapper.getNumber5());
             badNumbers.add(wrapper.getNumber6());
-            System.out.println(wrapper.toString());
         }
 
-        String numbers = "";
-        for (short number : classic.generateNumbers(badNumbers)) {
-            numbers += " " + number;
+        for (short number : badNumbers) {
+            if (number > 49 || number < 0) {
+                warning = true;
+                message = "The number '" + number + "' is out of range (0-49)";
+            }
         }
 
-        model.addAttribute("game", "Classic");
+        List<Short> numbers = classic.generateNumbers(badNumbers);
+
         model.addAttribute("numbers", numbers);
         model.addAttribute("bad", badNumbers);
-        System.out.println(badNumbers);
+        model.addAttribute("game", "Classic");
+        model.addAttribute("warning", warning);
+        model.addAttribute("msg", message);
         return "game";
     }
 
-    @RequestMapping("/eurojackpot")
-    public String eurojackpot(Model model) {
+    @GetMapping("/eurojackpot")
+    public String eurojackpotGet(Model model) {
+        List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
+
+        List<Short> numbers = eurojackpot.generateNumbers(badNumbers);
+
+        model.addAttribute("numbers", numbers);
+        model.addAttribute("bad", badNumbers);
         model.addAttribute("game", "Eurojackpot");
+        return "game";
+    }
+
+    @PostMapping("/eurojackpot")
+    public String eurojackpotPost(@ModelAttribute("numbers") NumbersRequestBody wrapper, Model model) {
+        boolean warning = false;
+        String message = "";
+
+        List<Short> badNumbers = List.of((short) 0, (short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
+        if (wrapper != null) {
+            badNumbers = new ArrayList<>();
+            badNumbers.add(wrapper.getNumber1());
+            badNumbers.add(wrapper.getNumber2());
+            badNumbers.add(wrapper.getNumber3());
+            badNumbers.add(wrapper.getNumber4());
+            badNumbers.add(wrapper.getNumber5());
+            badNumbers.add(wrapper.getNumber6());
+        }
+
+        for (short number : badNumbers) {
+            if (number > 49 || number < 0) {
+                warning = true;
+                message = "The number '" + number + "' is out of range (0-49)";
+            }
+        }
+
+        List<Short> numbers = eurojackpot.generateNumbers(badNumbers);
+
+        model.addAttribute("numbers", numbers);
+        model.addAttribute("bad", badNumbers);
+        model.addAttribute("game", "Eurojackpot");
+        model.addAttribute("warning", warning);
+        model.addAttribute("msg", message);
         return "game";
     }
 }
