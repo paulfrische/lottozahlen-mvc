@@ -8,18 +8,17 @@
 <body>
 <div>
     <h1 th:text="${game}" id="title"></h1>
-    <h2 id="numbers"></h2>
-    <button onclick="f()">Generate Numbers</button>
+    <h2 th:text="${numbers}"></h2>
+    <form th:action="${game.toLowerCase()}" modelAttribute="numbers" method="post">
+        <input type="text" name="number1" th:value="${bad[0]}" />
+        <input type="text" name="number2" th:value="${bad[1]}" />
+        <input type="text" name="number3" th:value="${bad[2]}" />
+        <input type="text" name="number4" th:value="${bad[3]}" />
+        <input type="text" name="number5" th:value="${bad[4]}" />
+        <input type="text" name="number6" th:value="${bad[5]}" />
+        <br>
+        <input type="submit" value="Generate Numbers">
+    </form>
 </div>
-<script defer>
-    async function f() {
-        const heading = document.getElementById('numbers');
-        const game = document.getElementById('title').innerHTML.toLowerCase();
-        const response = await fetch('/api/v1/' + game);
-        const json = await response.json();
-        heading.innerHTML = json.join(' ');
-    }
-    f();
-</script>
 </body>
 </html>

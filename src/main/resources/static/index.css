@@ -19,11 +19,26 @@ a {
     color: #3b6ecb;
 }
 
-button {
+form {
+    padding: 0;
+    margin: 0;
+}
+
+input[type = "text"] {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    margin-left: 0;
+    margin-right: 2rem;
+}
+
+input[type = "submit"] {
     background: #3afa3a;
     border-radius: 9999px;
     border-style: none;
     padding: 1rem;
+    margin-left: 0;
+    margin-right: 2rem;
 }
 
 div * {
